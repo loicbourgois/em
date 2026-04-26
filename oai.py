@@ -208,6 +208,20 @@ def get(prompt, model, max_output_tokens=None):
                 {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
             ],
             reasoning ={"effort": "low"},
+            store=False,
+        )
+        pricing_model = model
+    elif model in ["gpt-5.5-low-verbose"]:
+        r = client.responses.create(
+            model="gpt-5.5",
+            input=[
+                {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
+            ],
+            reasoning ={"effort": "low"},
+            text={
+                "verbosity": "high"
+            },
+            store=False,
         )
         pricing_model = model
     elif model in ["gpt-5.5-medium"]:
@@ -217,6 +231,7 @@ def get(prompt, model, max_output_tokens=None):
                 {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
             ],
             reasoning ={"effort": "medium"},
+            store=False,
         )
         pricing_model = model
     elif model in ["gpt-5.5-high"]:
@@ -226,12 +241,24 @@ def get(prompt, model, max_output_tokens=None):
                 {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
             ],
             reasoning ={"effort": "high"},
+            store=False,
+        )
+        pricing_model = model
+    elif model in ["gpt-5.5-pro-medium"]:
+        r = client.responses.create(
+            model="gpt-5.5-pro",
+            input=[
+                {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
+            ],
+            reasoning ={"effort": "medium"},
+            store=False,
         )
         pricing_model = model
     else:
         raise Exception(f"invalid model: {model}")
     text = r.output[-1].content[-1].text
     try:
+        print(r.usage)
         pricing_detail = pricing["2026-02-26"]["text"][r.service_tier][pricing_model]
         cost_estimate = (
             r.usage.input_tokens * pricing_detail["input"]
