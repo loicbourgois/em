@@ -22,11 +22,15 @@ RUN_lbl = True
 model = "gpt-5.5-medium"
 # model = "gpt-5-chat-latest"
 mode = "pretagged"
-size = "full"
+# size = "full"
 # size = "half"
-# size = "quarter"
-folder = f"{HOME}/github.com/loicbourgois/em/v5/{mode}-{size}-{model}"
-sacr = read(f"{HOME}/github.com/loicbourgois/em/gold/1823_Duras-Claire-de_Ourika/{size}.sacr")
+size = "quarter"
+# size = "sixteenth"
+# size = "small"
+book = "1830_Balzac-Honoré-de_Sarrasine"
+# book = "1731_Prévost-Antoine-François_Manon-Lescaut"
+sacr = read(f"{HOME}/github.com/loicbourgois/em/gold/{book}/{size}.sacr")
+folder = f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}"
 
 
 def run_one(i):
@@ -41,7 +45,7 @@ def run_one(i):
 
 # if `error in 00_counts.md`
 # check 00_counts.md, and rerun only needed paragraphs
-# run_one(21)
+run_one(36)
 # run_one(58)
 
 
@@ -52,12 +56,17 @@ write_force(f"{folder}/01_gold.sacr", "\n".join(paragraphs) + "\n")
 
 # 02
 content = read(f"{folder}/01_gold.sacr")
-for x in reversed(range(100)):
-    content = content.replace(f'{x}:EN="PER" ', f'____ ')
+pattern = r"\{([A-Za-z0-9_]+:EN\=\"PER\" )"
+matches = re.findall(pattern, content)
+for matche in matches:
+    content = content.replace(matche, '____ ')
 write_force(
     f"{folder}/02_prettagged.sacr",
     content,
 )
+
+
+# exit(1)
 
 
 # 03
