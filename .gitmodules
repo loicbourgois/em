@@ -1,0 +1,3 @@
+[submodule "propp"]
+	path = propp
+	url = git@github.com:lattice-8094/propp.git

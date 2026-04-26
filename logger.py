@@ -17,3 +17,6 @@ def get_logger(name: str = __name__):
         handler.setFormatter(formatter)
         logger.addHandler(handler)
     return logger
+
+
+logger = get_logger("loicbourgois.em")
