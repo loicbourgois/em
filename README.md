@@ -1,37 +1,42 @@
 # Entity Mapping
 
 
-## Results - [Ourika](v5/1823_Duras-Claire-de_Ourika)
-
-| Split  | gpt-5.5-high | gpt-5.5-medium | gpt-5.5-low |
-|---------|---------------|----------------|--------------|
-| quarter | [0.9926](v5/1823_Duras-Claire-de_Ourika/pretagged-quarter-gpt-5.5-high/00_result.tsv) | [0.9748](v5/1823_Duras-Claire-de_Ourika/pretagged-quarter-gpt-5.5-medium/00_result.tsv) | [0.9573](v5/1823_Duras-Claire-de_Ourika/pretagged-quarter-gpt-5.5-low/00_result.tsv) |
-| half    | [0.9680](v5/1823_Duras-Claire-de_Ourika/pretagged-half-gpt-5.5-high/00_result.tsv) | – | – |
-| full    | [0.9497](v5/1823_Duras-Claire-de_Ourika/pretagged-full-gpt-5.5-high/00_result.tsv) | [0.9511](v5/1823_Duras-Claire-de_Ourika/pretagged-full-gpt-5.5-medium/00_result.tsv) | – |
+## Results
 
 
-## Results - [Indiana](v5/1832_Sand-George_Indiana_PER-ONLY)
+### Ourika - Claire de Duras, 1823
+|                       |   full |   half |   quarter | eighth   | sixteenth   | 10   |     5 |
+|:----------------------|-------:|-------:|----------:|:---------|:------------|:-----|------:|
+| gpt-5.5-high          |  0.950 |  0.968 |     0.993 |          |             |      | 0.957 |
+| gpt-5.5-medium        |  0.951 |        |     0.975 |          |             |      |       |
+| gpt-5.5-low           |        |        |     0.957 |          |             |      |       |
+| google/gemma-4-31B-it |        |        |     0.950 |          |             |      | 0.957 |
+| gpt-5-chat-latest     |        |        |     0.741 |          |             |      |       |
+| google/gemma-4-E4B-it |        |        |     0.334 |          |             |      | 0.761 |
 
-| Split    | gpt-5.5-high | gpt-5.5-medium | gpt-5.5-low |
-|-----------|---------------|----------------|--------------|
-| sixteenth | –             | –              | –            |
-| eighth    | [0.3044](v5/1832_Sand-George_Indiana_PER-ONLY/pretagged-eighth-gpt-5.5-high/00_result.tsv)             | –              | -            |
-| quarter   | –             | –              | –            |
-| half      | –             | –              | –            |
-| full      | –             | –              | –            |
+
+### Sarrasine - Honoré de Balzac, 1830
+|                       |   full |   half |   quarter | eighth   |   sixteenth | 10   | 5   |
+|:----------------------|-------:|-------:|----------:|:---------|------------:|:-----|:----|
+| gpt-5.5-high          |  0.887 |  0.882 |           |          |             |      |     |
+| gpt-5.5-medium        |        |        |     0.894 |          |       0.916 |      |     |
+| gpt-5.5-low           |        |  0.500 |     0.870 |          |             |      |     |
+| google/gemma-4-31B-it |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
-## Results - [Sarrasine](v5/1830_Balzac-Honoré-de_Sarrasine)
-
-| Split    | gpt-5.5-high | gpt-5.5-medium | gpt-5.5-low |
-|-----------|---------------|----------------|--------------|
-| sixteenth | –             | [0.9161](v5/1830_Balzac-Honoré-de_Sarrasine/pretagged-sixteenth-gpt-5.5-medium/00_result.tsv) | – |
-| quarter   | –             | [0.8938](v5/1830_Balzac-Honoré-de_Sarrasine/pretagged-quarter-gpt-5.5-medium/00_result.tsv) | [0.8700](v5/1830_Balzac-Honoré-de_Sarrasine/pretagged-quarter-gpt-5.5-low/00_result.tsv) |
-| half      | [0.8817](v5/1830_Balzac-Honoré-de_Sarrasine/pretagged-half-gpt-5.5-high/00_result.tsv) | – | – |
-| full      | [0.8874](v5/1830_Balzac-Honoré-de_Sarrasine/pretagged-full-gpt-5.5-high/00_result.tsv) | – | – |
+### Indiana - George Sand, 1832
+|                       | full   | half   | quarter   |   eighth | sixteenth   | 10   | 5   |
+|:----------------------|:-------|:-------|:----------|---------:|:------------|:-----|:----|
+| gpt-5.5-high          |        |        |           |    0.304 |             |      |     |
+| gpt-5.5-medium        |        |        |           |          |             |      |     |
+| gpt-5.5-low           |        |        |           |          |             |      |     |
+| google/gemma-4-31B-it |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
 ## Related
-
 - https://arxiv.org/pdf/2510.15594
 - https://github.com/lattice-8094/litbank/tree/main/litbank-fr/data/sacr
