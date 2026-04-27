@@ -15,7 +15,7 @@
 | Split    | gpt-5.5-high | gpt-5.5-medium | gpt-5.5-low |
 |-----------|---------------|----------------|--------------|
 | sixteenth | –             | –              | –            |
-| eighth    | –             | –              | [0.3044](v5/1832_Sand-George_Indiana_PER-ONLY/pretagged-eighth-gpt-5.5-low/00_result.tsv) |
+| eighth    | [0.3044](v5/1832_Sand-George_Indiana_PER-ONLY/pretagged-eighth-gpt-5.5-high/00_result.tsv)             | –              | -            |
 | quarter   | –             | –              | –            |
 | half      | –             | –              | –            |
 | full      | –             | –              | –            |
