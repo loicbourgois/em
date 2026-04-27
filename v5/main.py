@@ -13,57 +13,71 @@ HOME = os.environ['HOME']
 RUN_OAI_1 = True
 RUN_OAI_1 = False
 RUN_OAI_2 = True
-# RUN_OAI_2 = False
+RUN_OAI_2 = False
 RUN_lbl = True
 # RUN_lbl = False
 
 
-# model = "gpt-5.5-high"
-model = "gpt-5.5-medium"
+model = "gpt-5.5-high"
+# model = "gpt-5.5-medium"
+# model = "gpt-5.5-low"
 # model = "gpt-5-chat-latest"
+
 mode = "pretagged"
+
 # size = "full"
 # size = "half"
-size = "quarter"
+# size = "quarter"
+size = "eighth"
 # size = "sixteenth"
-# size = "small"
-book = "1830_Balzac-Honoré-de_Sarrasine"
+# size = "10"
+
+# book = "1823_Duras-Claire-de_Ourika"
+# book = "1830_Balzac-Honoré-de_Sarrasine"
+book = "1832_Sand-George_Indiana_PER-ONLY"
 # book = "1731_Prévost-Antoine-François_Manon-Lescaut"
-sacr = read(f"{HOME}/github.com/loicbourgois/em/gold/{book}/{size}.sacr")
+
+sacr_full = read(f"{HOME}/github.com/loicbourgois/em/SACR_PER/{book}.generated_sacr")
 folder = f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}"
 
 
-def run_one(i):
-    print(f"run_one - {i}")
-    prompt = read(f"{folder}/03_{i}.md")
-    r = oai.get(prompt, model)
-    write_force(
-        f"{folder}/04_{i}.md",
-        r['response'],
-    )
-
-
-# if `error in 00_counts.md`
-# check 00_counts.md, and rerun only needed paragraphs
-run_one(36)
-# run_one(58)
-
-
 # 01
-paragraphs = [ x for x in sacr.split("\n") if len(x) ]
+paragraphs = [ x for x in sacr_full.split("\n") if len(x) ]
+if size == "full":
+    paragraphs = paragraphs
+elif size == "half":
+    paragraphs = paragraphs[0:len(paragraphs) // 2]
+elif size == "quarter":
+    paragraphs = paragraphs[0:len(paragraphs) // 4]
+elif size == "eighth":
+    paragraphs = paragraphs[0:len(paragraphs) // 8]
+elif size == "sixteenth":
+    paragraphs = paragraphs[0:len(paragraphs) // 16]
+elif size == "10":
+    paragraphs = paragraphs[0:10]
+else:
+    raise Exception("not implemented")
 write_force(f"{folder}/01_gold.sacr", "\n".join(paragraphs) + "\n")
 
 
 # 02
 content = read(f"{folder}/01_gold.sacr")
-pattern = r"\{([A-Za-z0-9_]+:EN\=\"PER\" )"
+pattern = r"(\{[A-Za-z0-9_]+:EN\=\"PER\" )"
 matches = re.findall(pattern, content)
 for matche in matches:
-    content = content.replace(matche, '____ ')
+    content = content.replace(matche, '{____ ')
 write_force(
     f"{folder}/02_prettagged.sacr",
     content,
 )
+
+
+s1 = read(f"{folder}/01_gold.sacr")
+s2 = read(f"{folder}/02_prettagged.sacr")
+c1 = s1.count("{")
+c2_1 = s2.count("{")
+c2_2 = s2.count("{____")
+print(f"mentions: {c1} | {c2_1} | {c2_2}")
 
 
 # exit(1)
@@ -109,21 +123,18 @@ if RUN_OAI_1:
     )
 
 
-# 05
-sacr_lines = []
-for i in range(content_split_len-1):
-    content = read(f"{folder}/04_{i}.md")
-    yaml_ = yaml.safe_load(content.replace("```yaml", "").replace("```json", "").replace("```", ""))
-    sacr_lines.append(yaml_['sacr'][0].replace("{", "{"+f"{i}_"))
-write_force(
-    f"{folder}/05.sacr",
-    "\n".join(sacr_lines) + "\n",
-)
-
-
 def update_count():
+    sacr_lines = []
+    for i in range(content_split_len-1):
+        content = read(f"{folder}/04_{i}.md")
+        yaml_ = yaml.safe_load(content.replace("```yaml", "").replace("```json", "").replace("```", ""))
+        sacr_lines.append(yaml_['sacr'][0].replace("{", "{"+f"{i}_"))
+    write_force(
+        f"{folder}/05.sacr",
+        "\n".join(sacr_lines) + "\n",
+    )
     status = "ok"
-    lines = []
+    counts = []
     c1 = read(f"{folder}/01_gold.sacr").split("\n")
     c5 = read(f"{folder}/05.sacr").split("\n")
     for i in range(content_split_len-1):
@@ -131,16 +142,53 @@ def update_count():
         count_5 = c5[i].count("{")
         if count_1 != count_5:
             status = "error"
-        lines.append(f"{i} | {count_5-count_1}")
-    write_force(
-        f"{folder}/00_counts.md",
-        "\n".join(lines),
-    )
+        counts.append({
+            "i": i,
+            "count": count_5-count_1
+        })
+    df = pandas.DataFrame(counts)
+    df.to_csv(f"{folder}/00_counts.tsv", sep="\t", index=False)
     return status
+
+
+def run_one(i):
+    print(f"run_one - {i}")
+    prompt = read(f"{folder}/03_{i}.md")
+    r = oai.get(prompt, model)
+    write_force(
+        f"{folder}/04_{i}.md",
+        r['response'],
+    )
+
+
+@async_wrap
+def run_one_async(i, done_set, total_count):
+    return run_one(i)
+
+
+for n in range(10):
+    status = update_count()
+    if status == "ok":
+        break
+    df_count = pandas.read_csv(f"{folder}/00_counts.tsv", sep="\t")
+    data = []
+    for _, row in df_count.iterrows():
+        if row["count"] != 0:
+            data.append(row['i'])
+    print(data)
+    parallel_v4(
+        data,
+        run_one_async,
+        concurrency = 100,
+    )
+
+
 status = update_count()
 if status != "ok":
-    print("error in 00_counts.md")
-    exit(1)
+    print("ERROR in 00_counts.tsv")
+    # exit(1)
+else:
+    print("OK 00_counts.tsv")
 
 
 # 06

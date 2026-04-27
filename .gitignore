@@ -6,9 +6,12 @@ v5/__pycache__
 .venv310/
 .venv39/
 v5/*/*
-!v5/*/00_result.tsv
-!v5/*/09.sacr
-!v5/*/01_gold.sacr
+!v5/*/*
+v5/*/*/*
+!v5/*/*/00_result.tsv
+!v5/*/*/09.sacr
+!v5/*/*/01_gold.sacr
 !v5/*/lbl/
 v5/*/lbl/*
 !v5/*/lbl/01_counts.md
+.DS_Store
