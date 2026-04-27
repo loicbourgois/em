@@ -1,7 +1,7 @@
 import os
 import json
 import pandas
-from ..io import read, write_force
+from ..io import read, write_force, file_exists
 from ..parallel_v4 import parallel_v4, async_wrap
 import yaml
 import re
@@ -108,13 +108,15 @@ for i, x in enumerate(content_split):
 
 # 04
 def function(x):
-    prompt = read(f"{folder}/03_{x['i']}.md")
-    r = llm.get(prompt, x['model'])
-    write_force(
-        f"{folder}/04_{x['i']}.md",
-        r,
-    )
-    return x
+    if file_exists(f"{folder}/04_{x['i']}.md"):
+        pass
+    else:
+        prompt = read(f"{folder}/03_{x['i']}.md")
+        r = llm.get(prompt, x['model'])
+        write_force(
+            f"{folder}/04_{x['i']}.md",
+            r,
+        )
 @async_wrap
 def function_async(x, done_set, total_count):
     return function(x)
@@ -125,7 +127,7 @@ for i in range(content_split_len-1):
         "i": i,
     })
 if RUN_LLM_1:
-    output = parallel_v4(
+    parallel_v4(
         data,
         function_async,
         concurrency = 100,

@@ -12,3 +12,7 @@ def write_force(path, content):
 def read(path):
     with open(path, "r") as file:
         return file.read()
+
+
+def file_exists(path):
+    return os.path.exists(path)
