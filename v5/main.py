@@ -31,16 +31,16 @@ mode = "pretagged"
 
 
 # size = "full"
-size = "half"
+# size = "half"
 # size = "quarter"
-# size = "eighth"
+size = "eighth"
 # size = "sixteenth"
 # size = "10"
 # size = "5"
 
 
-book = "1823_Duras-Claire-de_Ourika"
-# book = "1830_Balzac-Honoré-de_Sarrasine"
+# book = "1823_Duras-Claire-de_Ourika"
+book = "1830_Balzac-Honoré-de_Sarrasine"
 # book = "1832_Sand-George_Indiana_PER-ONLY"
 # book = "1731_Prévost-Antoine-François_Manon-Lescaut"
 

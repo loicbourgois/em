@@ -32,10 +32,13 @@ books = {
 
 content = read(f"{HOME}/github.com/loicbourgois/em/templates/README.md")
 
-
+# 
 results = ""
 for book_k, book in books.items():
-    data_df = pandas.DataFrame(index=list(models), columns=list(sizes), dtype=str)
+    data_df = pandas.DataFrame(index=['tokens', '']+list(models), columns=list(sizes), dtype=str)
+    for size in sizes:
+        data_df.at['tokens', size] = ""
+        data_df.at['', size] = ""
     for model in models:
         for size in sizes:
             path = f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}/00_result.tsv"
@@ -43,11 +46,18 @@ for book_k, book in books.items():
                 df = pandas.read_csv(path, sep='\t')
                 df = df.set_index('Unnamed: 0')
                 score = df.loc['CONLL', 'f1_score']
-                data_df.at[model, size] = score
+                data_df.at[model, size] = f"{int(score * 100)}%"
             except:
                 data_df.at[model, size] = ""
+            try:
+                df_tokens = pandas.read_csv(f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}/01_gold.sacr.tokens", sep='\t')
+                data_df.at['tokens', size] = str(int(df_tokens.shape[0]))
+            except:
+                pass
     results += f"\n\n### {book_k}\n"
-    results += str(data_df.to_markdown(floatfmt=".3f"))
+    # TODO: don't format row = tokens: it's an int
+    # results += str(data_df.to_markdown(floatfmt=".3f"))
+    results += str(data_df.to_markdown())
     results += "\n"
 
 
