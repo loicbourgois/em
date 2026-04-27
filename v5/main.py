@@ -30,10 +30,10 @@ model = "google/gemma-4-31B-it"
 mode = "pretagged"
 
 
-# size = "full"
+size = "full"
 # size = "half"
 # size = "quarter"
-size = "eighth"
+# size = "eighth"
 # size = "sixteenth"
 # size = "10"
 # size = "5"

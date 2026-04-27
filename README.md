@@ -20,12 +20,12 @@
 ### Sarrasine - Honoré de Balzac, 1830
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                | 15408  | 9790   | 4907      |          | 972         |      |     |
+| tokens                | 15408  | 9790   | 4907      | 2184     | 972         |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          | 88%    | 88%    |           |          |             |      |     |
 | gpt-5.5-medium        |        |        | 89%       |          | 91%         |      |     |
 | gpt-5.5-low           |        | 49%    | 87%       |          |             |      |     |
-| google/gemma-4-31B-it |        |        |           |          | 55%         |      |     |
+| google/gemma-4-31B-it |        |        |           | 69%      | 55%         |      |     |
 | gpt-5-chat-latest     |        |        |           |          |             |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
