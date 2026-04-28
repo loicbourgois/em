@@ -1,0 +1,138 @@
+# Goal
+
+
+## Group mentions
+Group mentions together into entities
+
+
+## Analyze relationships
+Map the relationships between the different entities
+
+
+## Update base
+Add back the entities in the base text.
+
+
+# Rules
+- Only work on living things. 
+- We don't care about the décor.
+- If two groups are refering to the same person, they should be merged together.
+- You can only replace `____` parts
+  If `____`is not present, do not do anything.
+- You need to replace all `____`
+- You can not create new `____`
+- Use simple text for id: 'a-z' + '_' only
+- a character can be in multiple entities
+  {{{{John}} et {{moi}}}}, {{nous}} regardons la télé
+    john_uniquement: John
+    narateur_uniquement: moi
+    les_2_personnages: nous
+    les_2_personnages: John et moi
+- if 2 entities are together, they create a new entity
+- entities ID can not have spaces " "
+- if you're not sure, prefer creating a new entity 'unsure_...' 
+  a follow up process will work on unsure mentions
+
+
+# Example
+
+
+## Input
+```json
+[
+    "Une histoire de chat",
+    "Édition de référence :",
+    "Chatou, Paris, 2076.",
+    "{{____ Je}} suis un chat. Les chats miaulent. {{____ Je}} miaule aussi.",
+    "{{____ Je}} me balade dans le jardin, et mange des souris.",
+    "{{____ Mes}} moustaches flottent au vent comme des petits cerf-volant.",
+    "{{____ J'}}ai les oreilles pointus, pointées vers {{____ les oiseaux}}.",
+    "{{____ Je}} mangerai bien {{____ le plus gros de {{____ ces moineaux}}}}.",
+]
+```
+
+
+## Output
+```json
+{{
+    "initial_mapping": {{
+        "Je": "un narateur",
+        "Je": "le meme narateur",
+        "Je": "le meme narateur",
+        "Mes": " une reference au narateur",
+        "J'": "le narateur",
+        "les oiseaux": "un groupe d'oiseu",
+        "Je": "le narateur encore une fois",
+        "le plus gros de ces moineaux": "un des oiseu specifique",
+        "ces moineaux": "une autre reference au groupe d'oiseaux",
+    }},
+    "entities_reasoning": [
+        ...
+    ],
+    "relationships_reasoning": [
+        ...
+    ],
+    # Use this section to make sure all rules are respected
+    "rules_validation": [
+        ...
+    ],
+    "final_reasoning": [
+        ...
+    ],
+    "relationships": [
+        {{
+            "entity_1": "le_chat",
+            "entity_2": "les_moineaux",
+            "relationship": "le_chat observe les_moineaux",
+        }}, {{
+            "entity_1": "les_moineaux",
+            "entity_2": "le_gros_moineau",
+            "relationship": "le_gros_moineau est un individu du groupe les_moineaux",
+        }}, {{
+            "entity_1": "le_chat",
+            "entity_2": "le_gros_moineau",
+            "relationship": "le_chat veut manger le_gros_moineau",
+        }}
+    ],
+    # Note how each entity is unique
+    # Note how we give them a description, to facilitate grouping
+    "entities": {{
+        "le_chat": {{
+            "description": "un chat spécifique, qui raconte l'histoire",
+            "mentions": ["Je", "Je", "Je", "Mes", "J'", "Je"],
+        }},
+        "les_moineaux": {{
+            "description": "les oiseux que je chat guette",
+            "mentions": ["les oiseaux", "ces moineaux"],
+        }},
+        "le_gros_moineau": {{
+            "description": "le moineau specific que le chat veut",
+            "mentions": ["le plus gros de ces moineaux"],
+        }},
+    }},
+    "sacr": [
+        "Une histoire de chat",
+        "Édition de référence :",
+        "Chatou, Paris, 2076.",
+        "{{le_chat Je}} suis un chat. Les chats miaulent. {{le_chat Je}} miaule aussi.",
+        "{{le_chat Je}} me balade dans le jardin, et mange des souris.",
+        "{{le_chat Mes}} moustaches flottent au vent comme des petits cerf-volant.",
+        "{{le_chat J'}}ai les oreilles pointus, pointées vers {{les_moineaux les oiseaux}}.",
+        "{{le_chat Je}} mangerai bien {{le_gros_moineau le plus gros de {{les_moineaux ces moineaux}}.",
+    ],
+    # Use this section to make sure all rules are respected
+    "final_rules_validation": [
+        ...
+    ],
+}}
+```
+
+
+# Input
+```json
+{input}
+```
+
+
+# Output
+<TODO>
