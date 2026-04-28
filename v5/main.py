@@ -1,47 +1,54 @@
-# setup
 import os
 import json
 import pandas
-from ..io import read, write_force
+from ..io import read, write_force, file_exists
 from ..parallel_v4 import parallel_v4, async_wrap
-from .. import oai
 import yaml
 import re
+from .. import llm
+
+
 HOME = os.environ['HOME']
 
 
-RUN_OAI_1 = True
-RUN_OAI_1 = False
-RUN_OAI_2 = True
-RUN_OAI_2 = False
+RUN_LLM_1 = True
+# RUN_LLM_1 = False
+RUN_LLM_2 = True
+# RUN_LLM_2 = False
 RUN_lbl = True
 # RUN_lbl = False
 
 
-model = "gpt-5.5-high"
+# model = "gpt-5.5-high"
 # model = "gpt-5.5-medium"
 # model = "gpt-5.5-low"
 # model = "gpt-5-chat-latest"
+# model = "google/gemma-4-E4B-it"
+model = "google/gemma-4-31B-it"
+
 
 mode = "pretagged"
 
-# size = "full"
+
+size = "full"
 # size = "half"
 # size = "quarter"
-size = "eighth"
+# size = "eighth"
 # size = "sixteenth"
 # size = "10"
+# size = "5"
+
 
 # book = "1823_Duras-Claire-de_Ourika"
-# book = "1830_Balzac-Honoré-de_Sarrasine"
-book = "1832_Sand-George_Indiana_PER-ONLY"
+book = "1830_Balzac-Honoré-de_Sarrasine"
+# book = "1832_Sand-George_Indiana_PER-ONLY"
 # book = "1731_Prévost-Antoine-François_Manon-Lescaut"
+
 
 sacr_full = read(f"{HOME}/github.com/loicbourgois/em/SACR_PER/{book}.generated_sacr")
 folder = f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}"
 
 
-# 01
 paragraphs = [ x for x in sacr_full.split("\n") if len(x) ]
 if size == "full":
     paragraphs = paragraphs
@@ -55,12 +62,14 @@ elif size == "sixteenth":
     paragraphs = paragraphs[0:len(paragraphs) // 16]
 elif size == "10":
     paragraphs = paragraphs[0:10]
+elif size == "5":
+    paragraphs = paragraphs[0:5]
 else:
     raise Exception("not implemented")
 write_force(f"{folder}/01_gold.sacr", "\n".join(paragraphs) + "\n")
 
 
-# 02
+
 content = read(f"{folder}/01_gold.sacr")
 pattern = r"(\{[A-Za-z0-9_]+:EN\=\"PER\" )"
 matches = re.findall(pattern, content)
@@ -99,13 +108,15 @@ for i, x in enumerate(content_split):
 
 # 04
 def function(x):
-    prompt = read(f"{folder}/03_{x['i']}.md")
-    r = oai.get(prompt, x['model'])
-    write_force(
-        f"{folder}/04_{x['i']}.md",
-        r['response'],
-    )
-    return x
+    if file_exists(f"{folder}/04_{x['i']}.md"):
+        pass
+    else:
+        prompt = read(f"{folder}/03_{x['i']}.md")
+        r = llm.get(prompt, x['model'])
+        write_force(
+            f"{folder}/04_{x['i']}.md",
+            r,
+        )
 @async_wrap
 def function_async(x, done_set, total_count):
     return function(x)
@@ -115,8 +126,8 @@ for i in range(content_split_len-1):
         "model": model,
         "i": i,
     })
-if RUN_OAI_1:
-    output = parallel_v4(
+if RUN_LLM_1:
+    parallel_v4(
         data,
         function_async,
         concurrency = 100,
@@ -127,8 +138,11 @@ def update_count():
     sacr_lines = []
     for i in range(content_split_len-1):
         content = read(f"{folder}/04_{i}.md")
-        yaml_ = yaml.safe_load(content.replace("```yaml", "").replace("```json", "").replace("```", ""))
-        sacr_lines.append(yaml_['sacr'][0].replace("{", "{"+f"{i}_"))
+        try:
+            yaml_ = yaml.safe_load(content.replace("```yaml", "").replace("```json", "").replace("```", ""))
+            sacr_lines.append(yaml_['sacr'][0].replace("{", "{"+f"{i}_"))
+        except:
+            sacr_lines.append("")
     write_force(
         f"{folder}/05.sacr",
         "\n".join(sacr_lines) + "\n",
@@ -154,10 +168,10 @@ def update_count():
 def run_one(i):
     print(f"run_one - {i}")
     prompt = read(f"{folder}/03_{i}.md")
-    r = oai.get(prompt, model)
+    r = llm.get(prompt, model)
     write_force(
         f"{folder}/04_{i}.md",
-        r['response'],
+        r,
     )
 
 
@@ -234,13 +248,13 @@ write_force(
 # exit(1)
 
 
-if RUN_OAI_2:
+if RUN_LLM_2:
     print("08 - run ai 2")
     prompt = read(f"{folder}/07.md")
-    r = oai.get(prompt, model)
+    r = llm.get(prompt, model)
     write_force(
         f"{folder}/08.md",
-        r['response'],
+        r,
     )
 
 
@@ -379,7 +393,3 @@ if RUN_lbl:
         f"{folder}/lbl/01_counts.md",
         "\n".join(lines),
     )
-
-
-# run_one(19)
-

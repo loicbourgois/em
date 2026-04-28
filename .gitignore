@@ -22,3 +22,5 @@ v5/*/lbl/*
 !v5/*/lbl/01_counts.md
 .DS_Store
 *llm.md
+gemma4/secrets.json
+gemma4/secrets_2.json
