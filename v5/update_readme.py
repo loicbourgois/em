@@ -1,6 +1,6 @@
 import os
 import pandas
-from .io import read, write_force
+from ..io import read, write_force
 HOME = os.environ['HOME']
 
 
@@ -23,7 +23,7 @@ sizes = [
     "5",
 ]
 books = {
-    # "Manon Lescaut - Antoine François Prévost, 1731": "1731_Prévost-Antoine-François_Manon-Lescaut",
+    "Manon Lescaut - Antoine François Prévost, 1731": "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
     "Ourika - Claire de Duras, 1823": "1823_Duras-Claire-de_Ourika",
     "Sarrasine - Honoré de Balzac, 1830": "1830_Balzac-Honoré-de_Sarrasine",
     "Indiana - George Sand, 1832": "1832_Sand-George_Indiana_PER-ONLY",
@@ -32,7 +32,7 @@ books = {
 
 content = read(f"{HOME}/github.com/loicbourgois/em/templates/README.md")
 
-# 
+
 results = ""
 for book_k, book in books.items():
     data_df = pandas.DataFrame(index=['tokens', '']+list(models), columns=list(sizes), dtype=str)
@@ -55,15 +55,14 @@ for book_k, book in books.items():
             except:
                 pass
     results += f"\n\n### {book_k}\n"
-    # TODO: don't format row = tokens: it's an int
-    # results += str(data_df.to_markdown(floatfmt=".3f"))
     results += str(data_df.to_markdown())
     results += "\n"
 
 
 write_force(
-    f"{HOME}/github.com/loicbourgois/em/README.md",
+    f"{HOME}/github.com/loicbourgois/em/v5/README.md",
     content.format(
         results=results,
+        version="v5",
     )
 )

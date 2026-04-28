@@ -16,33 +16,34 @@ RUN_LLM_1 = True
 RUN_LLM_2 = True
 # RUN_LLM_2 = False
 RUN_lbl = True
-# RUN_lbl = False
+RUN_lbl = False
 
 
 # model = "gpt-5.5-high"
 # model = "gpt-5.5-medium"
-# model = "gpt-5.5-low"
+model = "gpt-5.5-low"
 # model = "gpt-5-chat-latest"
 # model = "google/gemma-4-E4B-it"
-model = "google/gemma-4-31B-it"
+# model = "google/gemma-4-31B-it"
 
 
 mode = "pretagged"
 
 
-size = "full"
+# size = "full"
 # size = "half"
 # size = "quarter"
 # size = "eighth"
-# size = "sixteenth"
+size = "sixteenth"
 # size = "10"
 # size = "5"
 
 
+# book = "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY"
 # book = "1823_Duras-Claire-de_Ourika"
-book = "1830_Balzac-Honoré-de_Sarrasine"
-# book = "1832_Sand-George_Indiana_PER-ONLY"
-# book = "1731_Prévost-Antoine-François_Manon-Lescaut"
+# book = "1830_Balzac-Honoré-de_Sarrasine"
+book = "1832_Sand-George_Indiana_PER-ONLY"
+
 
 
 sacr_full = read(f"{HOME}/github.com/loicbourgois/em/SACR_PER/{book}.generated_sacr")
