@@ -42,19 +42,19 @@ mode = "pretagged"
 
 
 # size = "full"
-size = "half"
+# size = "half"
 # size = "quarter"
-# size = "eighth"
+size = "eighth"
 # size = "sixteenth"
 # size = "10"
 # size = "5"
 
 
 books = [
-    # "1830_Balzac-Honoré-de_Sarrasine",
+    "1830_Balzac-Honoré-de_Sarrasine",
     "1823_Duras-Claire-de_Ourika",
-    # "1832_Sand-George_Indiana_PER-ONLY",
-    # "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
+    "1832_Sand-George_Indiana_PER-ONLY",
+    "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
 ]
 
 split_size = 2
