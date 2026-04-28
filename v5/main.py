@@ -45,6 +45,7 @@ size = "sixteenth"
 book = "1832_Sand-George_Indiana_PER-ONLY"
 
 
+
 sacr_full = read(f"{HOME}/github.com/loicbourgois/em/SACR_PER/{book}.generated_sacr")
 folder = f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}"
 
