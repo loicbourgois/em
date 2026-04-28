@@ -8,22 +8,6 @@ import re
 from .. import llm
 
 
-# status = {
-# }
-# generate_tokens_and_entities_from_sacr_ = None
-# initialize_gold_coreference_matrix_from_entities_df_ = None
-# coreference_resolution_metrics_ = None
-# def import_propp():
-#     if status.get("import_propp") == "ok":
-#         pass
-#     else:
-        
-#         generate_tokens_and_entities_from_sacr_ = generate_tokens_and_entities_from_sacr
-#         initialize_gold_coreference_matrix_from_entities_df_ = initialize_gold_coreference_matrix_from_entities_df
-#         coreference_resolution_metrics_ = coreference_resolution_metrics
-#         status['import_propp'] = 'ok'
-
-
 HOME = os.environ['HOME']
 
 
@@ -51,19 +35,16 @@ size = "eighth"
 
 
 books = [
-    "1830_Balzac-Honoré-de_Sarrasine",
-    "1823_Duras-Claire-de_Ourika",
-    "1832_Sand-George_Indiana_PER-ONLY",
+    # "1830_Balzac-Honoré-de_Sarrasine",
+    # "1823_Duras-Claire-de_Ourika",
+    # "1832_Sand-George_Indiana_PER-ONLY",
     "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
 ]
+
 
 split_size = 2
 grouping = split_size*3
 overlap = split_size*2
-
-
-# RUN_AI_1 = True
-RUN_AI_1 = False
 
 
 def jdump(x):
@@ -94,7 +75,7 @@ def run(model, book):
 
 
     silver = read(f"{folder}/01_gold.sacr")
-    pattern = r"(\{[A-Za-z0-9_]+:EN\=\"PER\" )"
+    pattern = r"(\{[A-Za-z0-9_\-]+:EN\=\"PER\" )"
     matches = re.findall(pattern, silver)
     for matche in matches:
         silver = silver.replace(matche, '{____ ')
@@ -131,6 +112,7 @@ def run(model, book):
             uu.append(" ".join(chunk[aa:aa+step]))
         if len(uu) == 3:
             groups.append(uu)
+    assert 'EN="PER"' not in jdump(groups)
     write_force(f"{folder}/03_groups.json", jdump(groups))
 
 
@@ -171,7 +153,7 @@ def run(model, book):
                         "in": groups_[i],
                         "out": [ 
                             re.sub(
-                                r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ]+ )",
+                                r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ\-]+ )",
                                 "{____ ",
                                 x
                             )

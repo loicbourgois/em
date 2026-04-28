@@ -23,7 +23,7 @@ sizes = [
     "5",
 ]
 books = {
-    # "Manon Lescaut - Antoine François Prévost, 1731": "1731_Prévost-Antoine-François_Manon-Lescaut",
+    "Manon Lescaut - Antoine François Prévost, 1731": "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
     "Ourika - Claire de Duras, 1823": "1823_Duras-Claire-de_Ourika",
     "Sarrasine - Honoré de Balzac, 1830": "1830_Balzac-Honoré-de_Sarrasine",
     "Indiana - George Sand, 1832": "1832_Sand-George_Indiana_PER-ONLY",

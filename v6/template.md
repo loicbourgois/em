@@ -30,8 +30,10 @@ Add back the entities in the base text.
     les_2_personnages: John et moi
 - if 2 entities are together, they create a new entity
 - entities ID can not have spaces " "
-- if you're not sure, prefer creating a new entity 'unsure_...' 
+- if you're not sure, prefer tagging the metion with 'unsure_...' + different tag
   a follow up process will work on unsure mentions
+  do not create new mentions
+  only existing `{{___ ` are ok to replace
 
 
 # Example

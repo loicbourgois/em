@@ -7,11 +7,11 @@
 ### Manon Lescaut - Antoine François Prévost, 1731
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           |          |             |      |     |
+| tokens                |        |        |           | 8293     |             |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
-| gpt-5.5-low           |        |        |           |          |             |      |     |
+| gpt-5.5-low           |        |        |           | 68%      |             |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        |        |           |          |             |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
@@ -46,11 +46,11 @@
 ### Indiana - George Sand, 1832
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           |          |             |      |     |
+| tokens                |        |        |           | 14350    |             |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
-| gpt-5.5-low           |        |        |           |          |             |      |     |
+| gpt-5.5-low           |        |        |           | 62%      |             |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        |        |           |          |             |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
