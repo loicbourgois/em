@@ -15,10 +15,11 @@ version = "v6"
 
 
 models = [
-    # "gpt-5-chat-latest",
-    "gpt-5.5-low",
+    "gpt-5-chat-latest",
+    # "gpt-5.5-low",
     # "gpt-5.5-medium",
     # "gpt-5.5-high",
+    # "google/gemma-4-31B-it",
 ]
 
 
@@ -35,16 +36,19 @@ size = "eighth"
 
 
 books = [
+    "1823_Duras-Claire-de_Ourika",
     # "1830_Balzac-Honoré-de_Sarrasine",
-    # "1823_Duras-Claire-de_Ourika",
+    # "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
     # "1832_Sand-George_Indiana_PER-ONLY",
-    "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
 ]
 
 
 split_size = 2
 grouping = split_size*3
 overlap = split_size*2
+
+
+concurrency = 32
 
 
 def jdump(x):
@@ -80,6 +84,20 @@ def run(model, book):
     for matche in matches:
         silver = silver.replace(matche, '{____ ')
     parts = [  x + "." for x in silver.split(splitter) ]
+
+
+    i = 0
+    while True:
+        if parts[i].count("{") != parts[i].count("}"):
+            parts[i] = parts[i] + " " + parts[i + 1]
+            parts.pop(i + 1)
+            i -= 1
+        else:
+            i += 1
+        if i >= len(parts):
+            break
+
+
     l = len(parts)
     if parts[l-1][-1] == "." and parts[l-1][-2] == ".":
         parts[l-1] = parts[l-1][0:-1]
@@ -98,6 +116,29 @@ def run(model, book):
         else:
             merged_parts.append(p)
     parts = merged_parts
+
+
+    write_force(f"{folder}/02_parts.json", jdump(parts))
+    write_force(f"{folder}/02_parts.txt", " ".join(parts).replace('{____ ', "").replace('}', "") )
+    
+
+    for p in parts:
+        # TODO: better way to assert everything open and close properly : { -> }
+        # eg, incorrect : "le chevalier de B.}, {____ qui} en était gouverneur."
+        assert p.count("{") == p.count("}"), p
+        assert ".. " not in p, p
+
+
+    from ..propp.propp_fr.src.propp_fr.propp_fr_generate_tokens_and_entities_from_sacr import (
+        generate_tokens_and_entities_from_sacr
+    )
+    generate_tokens_and_entities_from_sacr(
+        file_name=f"01_gold.sacr",
+        files_directory=folder,
+    )
+    print(len(read(f"{folder}/01_gold.sacr.txt")))
+    print(len(read(f"{folder}/02_parts.txt")))
+    assert read(f"{folder}/02_parts.txt") == read(f"{folder}/01_gold.sacr.txt")
     write_force(f"{folder}/02_parts.json", jdump(parts))
 
 
@@ -153,7 +194,7 @@ def run(model, book):
                         "in": groups_[i],
                         "out": [ 
                             re.sub(
-                                r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ\-]+ )",
+                                r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-]+ )",
                                 "{____ ",
                                 x
                             )
@@ -176,11 +217,20 @@ def run(model, book):
             j = json.loads(read(f"{folder}/05_response_{i}.json"))
         except:
             data.append(i)
+    
+    if len(data):
+        print("model warmup")
+        r = llm.get("Hello", model)
+        print(r)
+
     parallel_v4(
         data,
         function_async,
-        concurrency = 100,
+        concurrency = concurrency,
     )
+
+
+    rerun_ok = False
 
 
     for rerun_i in range(4):
@@ -193,7 +243,7 @@ def run(model, book):
             
             input_ = "".join(json.loads(read(f"{folder}/03_groups.json"))[i])
             output_ = re.sub(
-                r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ]+ )",
+                r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-]+ )",
                 "{____ ",
                 "".join(j['data']['sacr'])
             )
@@ -204,10 +254,13 @@ def run(model, book):
             parallel_v4(
                 rerun,
                 function_async,
-                concurrency = 100,
+                concurrency = concurrency,
             )
         else:
+            rerun_ok = True
             break
+    if not rerun_ok:
+        raise Exception("rerun not ok")
 
 
     aa = [[] for _ in range(len(groups)+2)]
@@ -228,6 +281,7 @@ def run(model, book):
 
     sacr_split = json.loads(read(f"{folder}/06_mentions.json"))
     for i in range(len(groups)):
+        print(i)
         s1 = ""
         s2 = ""
         s3 = ""
@@ -237,16 +291,18 @@ def run(model, book):
             s3 = sacr_split[i+2][-3]
         except:
             pass
-        pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ]+ )\b"
-        matches = re.findall(pattern, s1)
-        for match in matches:
+        print(f"{len(s1)}, {len(s2)}, {len(s3)}")
+        pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-]+ )"
+        matches_1 = re.findall(pattern, s1)
+        for match in matches_1:
             s1 = s1.replace("{"+match, "{"+f"{i}_" + match)
-        matches = re.findall(pattern, s2)
-        for match in matches:
+        matches_2 = re.findall(pattern, s2)
+        for match in matches_2:
             s2 = s2.replace("{"+match, "{"+f"{i}_" + match)
-        matches = re.findall(pattern, s3)
-        for match in matches:
+        matches_3 = re.findall(pattern, s3)
+        for match in matches_3:
             s3 = s3.replace("{"+match, "{"+f"{i}_" + match)
+        print(f"{len(matches_1)}, {len(matches_2)}, {len(matches_3)}")
         try:
             sacr_split[i][-1] = s1
             sacr_split[i+1][-2] = s2
@@ -263,7 +319,7 @@ def run(model, book):
     pairs = []
     for j in range(len(unique_mentions)):
         aa = unique_mentions[j]
-        pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ]+ )\b"
+        pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-]+ )"
         m1 = re.findall(pattern, aa[0])
         m2 = []
         m3 = []
@@ -317,7 +373,7 @@ def run(model, book):
 
 
     sacr = " ".join(mentions_final)
-    pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ]+ )"
+    pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-]+ )"
     matches = re.findall(pattern, sacr)
     for match in matches:
         sacr = sacr.replace(match, match[:-1] + ':EN="PER" ')
@@ -327,22 +383,20 @@ def run(model, book):
     )
 
 
-    pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœ]+:)"
+    pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-]+:)"
     matches = set(re.findall(pattern, read(f"{folder}/11_silver.sacr")))
     print(matches)
 
 
-    from ..propp.propp_fr.src.propp_fr.propp_fr_generate_tokens_and_entities_from_sacr import (
-        generate_tokens_and_entities_from_sacr
-    )
-    generate_tokens_and_entities_from_sacr(
-        file_name=f"01_gold.sacr",
-        files_directory=folder,
-    )
     generate_tokens_and_entities_from_sacr(
         file_name="11_silver.sacr",
         files_directory=folder,
     )
+
+
+    assert 'EN="PER"' not in read(f"{folder}/11_silver.sacr.txt")
+
+
     l1 = len(read(f"{folder}/01_gold.sacr.txt"))
     l2 = len(read(f"{folder}/11_silver.sacr.txt"))
     assert l1 == l2, f"{l1} != {l2}"

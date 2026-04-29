@@ -7,13 +7,13 @@
 ### Manon Lescaut - Antoine François Prévost, 1731
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           | 8978     |             |      |     |
+| tokens                |        |        |           | 8978     | 3875        |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           | 85%      |             |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           | 40%      | 42%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
@@ -25,8 +25,8 @@
 | gpt-5.5-high          | 94%    | 96%    | 99%       |          |             |      | 95% |
 | gpt-5.5-medium        | 95%    |        | 97%       |          |             |      |     |
 | gpt-5.5-low           |        |        | 95%       | 96%      |             |      |     |
-| google/gemma-4-31B-it |        | 58%    | 95%       |          |             |      | 95% |
-| gpt-5-chat-latest     |        |        | 74%       |          |             |      |     |
+| google/gemma-4-31B-it |        | 58%    | 95%       | 97%      |             |      | 95% |
+| gpt-5-chat-latest     |        |        | 74%       | 80%      |             |      |     |
 | google/gemma-4-E4B-it |        |        | 33%       |          |             |      | 76% |
 
 
@@ -39,7 +39,7 @@
 | gpt-5.5-medium        |        |        | 89%       |          | 91%         |      |     |
 | gpt-5.5-low           |        | 49%    | 87%       | 91%      |             |      |     |
 | google/gemma-4-31B-it |        |        |           | 69%      | 55%         |      |     |
-| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           | 45%      | 49%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
@@ -52,7 +52,7 @@
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           | 36%      | 62%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           | 25%      | 41%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 

@@ -13,7 +13,7 @@
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           | 68%      |             |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           | 58%      |             |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
@@ -26,7 +26,7 @@
 | gpt-5.5-medium        |        |        |           |          | 83%         |      |     |
 | gpt-5.5-low           |        |        |           | 78%      | 83%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           |          | 76%         |      |     |
+| gpt-5-chat-latest     |        |        |           | 74%      | 76%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
@@ -38,8 +38,8 @@
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           | 79%      |             |      |     |
-| google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| google/gemma-4-31B-it |        |        |           | 75%      |             |      |     |
+| gpt-5-chat-latest     |        |        |           | 49%      |             |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
