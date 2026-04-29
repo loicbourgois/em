@@ -26,7 +26,7 @@ models = [
 books = [
     # "1823_Duras-Claire-de_Ourika",
     # "1830_Balzac-Honoré-de_Sarrasine",
-    "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
+    # "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
     "1832_Sand-George_Indiana_PER-ONLY",
 ]
 
@@ -140,6 +140,8 @@ for model in models:
                     "model": model,
                     "i": i,
                 })
+        print("04 - query parts")
+        print([ x["i"] for x in data ])
         parallel_v4(
             data,
             function_async,

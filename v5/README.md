@@ -12,7 +12,7 @@
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           | 85%      |             |      |     |
-| google/gemma-4-31B-it |        |        |           |          |             |      |     |
+| google/gemma-4-31B-it |        |        |           | 44%      |             |      |     |
 | gpt-5-chat-latest     |        |        |           | 40%      | 42%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
