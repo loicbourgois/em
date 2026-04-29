@@ -16,9 +16,10 @@ version = "v6"
 
 models = [
     # "gpt-5-chat-latest",
-    "gpt-5.5-low",
+    # "gpt-5.5-low",
     # "gpt-5.5-medium",
     # "gpt-5.5-high",
+    "google/gemma-4-31B-it",
 ]
 
 
@@ -35,16 +36,19 @@ size = "eighth"
 
 
 books = [
-    # "1830_Balzac-Honoré-de_Sarrasine",
     # "1823_Duras-Claire-de_Ourika",
-    # "1832_Sand-George_Indiana_PER-ONLY",
+    # "1830_Balzac-Honoré-de_Sarrasine",
     "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
+    "1832_Sand-George_Indiana_PER-ONLY",
 ]
 
 
 split_size = 2
 grouping = split_size*3
 overlap = split_size*2
+
+
+concurrency = 32
 
 
 def jdump(x):
@@ -176,10 +180,16 @@ def run(model, book):
             j = json.loads(read(f"{folder}/05_response_{i}.json"))
         except:
             data.append(i)
+    
+    if len(data):
+        print("model warmup")
+        r = llm.get("Hello", model)
+        print(r)
+
     parallel_v4(
         data,
         function_async,
-        concurrency = 100,
+        concurrency = concurrency,
     )
 
 
@@ -204,7 +214,7 @@ def run(model, book):
             parallel_v4(
                 rerun,
                 function_async,
-                concurrency = 100,
+                concurrency = concurrency,
             )
         else:
             break

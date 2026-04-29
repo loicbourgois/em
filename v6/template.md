@@ -33,7 +33,10 @@ Add back the entities in the base text.
 - if you're not sure, prefer tagging the metion with 'unsure_...' + different tag
   a follow up process will work on unsure mentions
   do not create new mentions
-  only existing `{{___ ` are ok to replace
+  only existing `___` are ok to replace
+- do not add any `{{`
+- do not add any `}}`
+- strictly rewrite the input sentences
 
 
 # Example
