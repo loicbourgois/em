@@ -139,6 +139,9 @@ def run(model, book):
     print(len(read(f"{folder}/01_gold.sacr.txt")))
     print(len(read(f"{folder}/02_parts.txt")))
     assert read(f"{folder}/02_parts.txt") == read(f"{folder}/01_gold.sacr.txt")
+    write_force(f"{folder}/02_parts.json", jdump(parts))
+
+
 
 
     step = grouping - overlap
@@ -152,6 +155,9 @@ def run(model, book):
             groups.append(uu)
     assert 'EN="PER"' not in jdump(groups)
     write_force(f"{folder}/03_groups.json", jdump(groups))
+
+
+    # exit(1)
 
 
     for i, group in enumerate(groups):
@@ -225,6 +231,8 @@ def run(model, book):
 
 
     rerun_ok = False
+
+
     for rerun_i in range(4):
         rerun = []
         for i in range(len(groups)):
