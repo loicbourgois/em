@@ -18,4 +18,5 @@ def gemma4_get(prompt, model):
             "skip_special_tokens": False
         }
     )
+    print(r)
     return r.json()['choices'][0]['message']["content"]
