@@ -17,16 +17,17 @@ RUN_lbl = False
 models = [
     # "gpt-5-chat-latest",
     # "gpt-5.5-low",
+    "gpt-5.5-none",
     # "gpt-5.5-medium",
     # "gpt-5.5-high",
-    "google/gemma-4-31B-it",
+    # "google/gemma-4-31B-it",
 ]
 
 
 books = [
-    # "1823_Duras-Claire-de_Ourika",
-    # "1830_Balzac-Honoré-de_Sarrasine",
-    # "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
+    "1823_Duras-Claire-de_Ourika",
+    "1830_Balzac-Honoré-de_Sarrasine",
+    "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
     "1832_Sand-George_Indiana_PER-ONLY",
 ]
 

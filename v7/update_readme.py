@@ -31,6 +31,9 @@ books = {
 }
 
 
+version = "v7"
+
+
 content = read(f"{HOME}/github.com/loicbourgois/em/templates/README.md")
 
 
@@ -42,7 +45,7 @@ for book_k, book in books.items():
         data_df.at['', size] = ""
     for model in models:
         for size in sizes:
-            path = f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}/00_result.tsv"
+            path = f"{HOME}/github.com/loicbourgois/em/{version}/{book}/{mode}-{size}-{model}/05_results.tsv"
             try:
                 df = pandas.read_csv(path, sep='\t')
                 df = df.set_index('Unnamed: 0')
@@ -51,7 +54,7 @@ for book_k, book in books.items():
             except:
                 data_df.at[model, size] = ""
             try:
-                df_tokens = pandas.read_csv(f"{HOME}/github.com/loicbourgois/em/v5/{book}/{mode}-{size}-{model}/01_gold.sacr.tokens", sep='\t')
+                df_tokens = pandas.read_csv(f"{HOME}/github.com/loicbourgois/em/{version}/{book}/{mode}-{size}-{model}/01_gold.sacr.tokens", sep='\t')
                 data_df.at['tokens', size] = str(int(df_tokens.shape[0]))
             except:
                 pass
@@ -61,9 +64,9 @@ for book_k, book in books.items():
 
 
 write_force(
-    f"{HOME}/github.com/loicbourgois/em/v5/README.md",
+    f"{HOME}/github.com/loicbourgois/em/{version}/README.md",
     content.format(
         results=results,
-        version="v5",
+        version=version,
     )
 )

@@ -201,6 +201,16 @@ def get(prompt, model, max_output_tokens=None):
             temperature=0,
         )
         pricing_model = model
+    elif model in ["gpt-5.5-none"]:
+        r = client.responses.create(
+            model="gpt-5.5",
+            input=[
+                {"role": "user", "content": [{"type": "input_text", "text": prompt}]},
+            ],
+            reasoning ={"effort": "none"},
+            store=False,
+        )
+        pricing_model = model
     elif model in ["gpt-5.5-low"]:
         r = client.responses.create(
             model="gpt-5.5",
