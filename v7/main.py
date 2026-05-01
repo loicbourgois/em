@@ -62,10 +62,12 @@ def jread(path):
 
 def run(model, book, size):
     splitter = ". "
-
     sacr_full = read(f"{HOME}/github.com/loicbourgois/em/SACR_PER/{book}.generated_sacr")
     folder = f"{HOME}/github.com/loicbourgois/em/{version}/{book}/{mode}-{size}-{model}"
     print(folder)
+    if file_exists(f"{folder}/05_results.tsv"):
+        print("SKIP")
+        return
     parts = sacr_full.split(splitter)
     if size == "full":
         parts = parts

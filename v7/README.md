@@ -47,14 +47,14 @@
 
 
 ### Indiana - George Sand, 1832
-|                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
-|:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           |          | 8045        |      |     |
+|                       | full   | half   | quarter   |   eighth | sixteenth   | 10   | 5   |
+|:----------------------|:-------|:-------|:----------|---------:|:------------|:-----|:----|
+| tokens                |        |        |           |    14350 | 8045        |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           |          |             |      |     |
-| gpt-5.5-none          |        |        |           |          |             |      |     |
+| gpt-5.5-none          |        |        |           |          | 90%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        |        |           |          | 76%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
@@ -63,6 +63,7 @@
 ## More results
 - [v5](https://github.com/loicbourgois/em/tree/main/v5)
 - [v6](https://github.com/loicbourgois/em/tree/main/v6)
+- [v7](https://github.com/loicbourgois/em/tree/main/v7)
 
 
 ## Related
