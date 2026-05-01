@@ -7,12 +7,12 @@
 ### Manon Lescaut - Antoine François Prévost, 1731
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           |          | 3936        |      |     |
+| tokens                |        |        |           | 8293     | 3936        |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           |          |             |      |     |
-| gpt-5.5-none          |        |        |           |          |             |      |     |
+| gpt-5.5-none          |        |        |           | 94%      | 94%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        |        |           |          | 68%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
@@ -40,7 +40,7 @@
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           |          |             |      |     |
-| gpt-5.5-none          |        |        |           |          | 88%         |      |     |
+| gpt-5.5-none          |        |        |           | 90%      | 88%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        | 74%    | 75%       | 79%      | 76%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |

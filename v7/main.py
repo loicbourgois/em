@@ -40,7 +40,7 @@ books = [
     "1823_Duras-Claire-de_Ourika",
     "1830_Balzac-Honoré-de_Sarrasine",
     "1731_Prévost-Antoine-François_Manon-Lescaut_PER-ONLY",
-    # "1832_Sand-George_Indiana_PER-ONLY",
+    "1832_Sand-George_Indiana_PER-ONLY",
 ]
 
 
@@ -209,7 +209,7 @@ def run(model, book, size):
     pattern = r"\{([A-Za-z0-9_À-ÖØ-öø-ÿŒœê\-É]+ )"
     matches = re.findall(pattern, sacr)
     for match in matches:
-        sacr = sacr.replace(match, match[:-1] + ':EN="PER" ')
+        sacr = sacr.replace("{"+match, "{"+match[:-1] + ':EN="PER" ')
     write_force(
         f"{folder}/04_silver.sacr",
         sacr,
