@@ -21,12 +21,12 @@
 ### Ourika - Claire de Duras, 1823
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           | 1238     | 662         |      |     |
+| tokens                |        | 6757   | 3186      | 1238     | 662         |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           |          | 97%         |      |     |
-| gpt-5.5-none          |        |        |           | 98%      | 97%         |      |     |
+| gpt-5.5-none          |        | 95%    | 96%       | 98%      | 97%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        |        |           |          | 96%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
@@ -40,7 +40,7 @@
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
 | gpt-5.5-low           |        |        |           |          |             |      |     |
-| gpt-5.5-none          |        |        |           | 90%      | 88%         |      |     |
+| gpt-5.5-none          |        | 89%    | 87%       | 90%      | 88%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
 | gpt-5-chat-latest     |        | 74%    | 75%       | 79%      | 76%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
