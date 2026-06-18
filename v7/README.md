@@ -1,58 +1,62 @@
 # Entity Mapping
 
 
-## Results - v6
+## Results - v7
 
 
 ### Manon Lescaut - Antoine François Prévost, 1731
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           | 8293     |             |      |     |
+| tokens                |        |        |           | 8293     | 3936        |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
-| gpt-5.5-low           |        |        |           | 68%      |             |      |     |
+| gpt-5.5-low           |        |        |           |          |             |      |     |
+| gpt-5.5-none          |        |        |           | 94%      | 94%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           | 58%      |             |      |     |
+| gpt-5-chat-latest     |        |        |           |          | 68%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
 ### Ourika - Claire de Duras, 1823
 |                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
 |:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           | 1238     | 662         |      |     |
+| tokens                |        | 6757   | 3186      | 1238     | 662         |      |     |
 |                       |        |        |           |          |             |      |     |
-| gpt-5.5-high          |        |        |           |          | 83%         |      |     |
-| gpt-5.5-medium        |        |        |           |          | 83%         |      |     |
-| gpt-5.5-low           |        |        |           | 78%      | 83%         |      |     |
+| gpt-5.5-high          |        |        |           |          |             |      |     |
+| gpt-5.5-medium        |        |        |           |          |             |      |     |
+| gpt-5.5-low           |        |        |           |          | 97%         |      |     |
+| gpt-5.5-none          |        | 95%    | 96%       | 98%      | 97%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           | 74%      | 76%         |      |     |
+| gpt-5-chat-latest     |        |        |           |          | 96%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
 ### Sarrasine - Honoré de Balzac, 1830
-|                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
-|:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           | 2339     |             |      |     |
+|                       |   full | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
+|:----------------------|-------:|:-------|:----------|:---------|:------------|:-----|:----|
+| tokens                |  15408 | 8199   | 4246      | 2339     | 1009        |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
-| gpt-5.5-low           |        |        |           | 79%      |             |      |     |
-| google/gemma-4-31B-it |        |        |           | 75%      |             |      |     |
-| gpt-5-chat-latest     |        |        |           | 49%      |             |      |     |
+| gpt-5.5-low           |        |        |           |          |             |      |     |
+| gpt-5.5-none          |        | 89%    | 87%       | 90%      | 88%         |      |     |
+| google/gemma-4-31B-it |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        | 74%    | 75%       | 79%      | 76%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
 ### Indiana - George Sand, 1832
-|                       | full   | half   | quarter   | eighth   | sixteenth   | 10   | 5   |
-|:----------------------|:-------|:-------|:----------|:---------|:------------|:-----|:----|
-| tokens                |        |        |           | 14350    |             |      |     |
+|                       | full   | half   | quarter   |   eighth | sixteenth   | 10   | 5   |
+|:----------------------|:-------|:-------|:----------|---------:|:------------|:-----|:----|
+| tokens                |        |        |           |    14350 | 8045        |      |     |
 |                       |        |        |           |          |             |      |     |
 | gpt-5.5-high          |        |        |           |          |             |      |     |
 | gpt-5.5-medium        |        |        |           |          |             |      |     |
-| gpt-5.5-low           |        |        |           | 62%      |             |      |     |
+| gpt-5.5-low           |        |        |           |          |             |      |     |
+| gpt-5.5-none          |        |        |           |          | 90%         |      |     |
 | google/gemma-4-31B-it |        |        |           |          |             |      |     |
-| gpt-5-chat-latest     |        |        |           |          |             |      |     |
+| gpt-5-chat-latest     |        |        |           |          | 76%         |      |     |
 | google/gemma-4-E4B-it |        |        |           |          |             |      |     |
 
 
